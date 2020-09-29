@@ -9,14 +9,14 @@ The data set included with the assignment is based on 2014 ACS 1-year estimates:
 
 ## Tasks
 
-You need to create a scatter plot between two of the data variables such as Healthcare vs. Poverty or Smokers vs. Age.
+*  Create a scatter plot between two of the data variables such as Healthcare vs. Poverty or Smokers vs. Age.
 
-Using D3, create a scatter plot that represents each state with circle elements.
-
-
-Include state abbreviations in the circles.
+*  Using D3, create a scatter plot that represents each state with circle elements.
 
 
-Create and situate your axes and labels to the left and bottom of the chart.
+*  Include state abbreviations in the circles.
+
+
+*  Create and situate your axes and labels to the left and bottom of the chart.
 
 
