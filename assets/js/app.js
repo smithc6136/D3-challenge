@@ -1,5 +1,3 @@
-// in csv MOE stands for Margin of Error?
-
 // ********************************************************************************
 // 1. Set up Chart: Define Dimensions and Set Margins
 // ********************************************************************************
@@ -40,14 +38,20 @@ var chartGroup = svg.append("g")
 // ********************************************************************************
 
 // Load data from data.csv
-d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close this curly bracket??
+d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I close this curly bracket??
 
-    // Print the obesityData (*** how would it know what to grab? ***)
-    console.log(obesityData);
+    // Print the csv data
+    console.log(statesData);
 
     // ********************************************************************************
-    // 4. Parse the Data - is this necessary if no dates involved?
+    // 4. Parse the Data (from string to integer)
     // ********************************************************************************
+
+    // Format the date and cast the miles value to a number
+    statesData.forEach(function(data) {
+        data.obesity = +data.obesity;
+        data.poverty = +data.poverty;
+    });
 
     // ********************************************************************************
     // 4. Format the Data - is this necessary? If so see 16.2 Act 04
@@ -63,13 +67,13 @@ d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close 
     // d3.extent returns the an array containing the min and max values for the property specified
     var xTimeScale = d3.scaleTime()
         .range([0, chartWidth])
-        .domain(d3.extent(obesityData, data => data.date));
+        .domain(d3.extent(statesData, data => data.obesity));
 
     // Configure a linear scale with a range between the chartHeight and 0
     // Set the domain for the xLinearScale function
     var yLinearScale = d3.scaleLinear()
         .range([chartHeight, 0])
-        .domain([0, d3.max(milesData, data => data.miles)]);
+        .domain([0, d3.max(statesData, data => data.poverty)]);
 
     // ********************************************************************************
     // 6. Create Axes
