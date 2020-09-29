@@ -47,7 +47,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // 4. Parse the Data (from string to integer)
     // ********************************************************************************
 
-    // Format the date and cast the miles value to a number
+    // Format the date and cast the obesity and poverty values to a number
     statesData.forEach(function(data) {
         data.obesity = +data.obesity;
         data.poverty = +data.poverty;
@@ -59,7 +59,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
 
     // ********************************************************************************
     // 5. Create Scales
-    // I want poverty on x axis and obesity on y axis
+    // Poverty on x axis and obesity on y axis
     // ********************************************************************************
 
     // Configure a time scale with a range between 0 and the chartWidth
@@ -149,13 +149,10 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // ********************************************************************************
 
     // Add bottomAxis
-    chartGroup.append("g").attr("transform", `translate(0, ${height})`).call(bottomAxis);
+    chartGroup.append("g").attr("transform", `translate(0, ${svgHeight})`).call(bottomAxis);
 
     // Add leftAxis to the left side of the display
     chartGroup.append("g").call(leftAxis);
-
-    // Add rightAxis to the right side of the display
-    chartGroup.append("g").attr("transform", `translate(${width}, 0)`).call(rightAxis);
 
     // ********************************************************************************
     // Step 8: Set up bubbles and append SVG path?
@@ -169,7 +166,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // Add dots
     svg.append('g')
         .selectAll("dot")
-        .data(data)
+        .data(statesData)
         .enter()
         .append("circle")
         .attr("cx", function (d) { return x(d.poverty); })
