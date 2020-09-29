@@ -1,7 +1,7 @@
 // in csv MOE stands for Margin of Error?
 
 // ********************************************************************************
-// Define Dimensions and Set Margins
+// 1. Set up Chart: Define Dimensions and Set Margins
 // ********************************************************************************
 
 // Define SVG area dimensions
@@ -20,6 +20,10 @@ var margin = {
 var chartWidth = svgWidth - margin.left - margin.right;
 var chartHeight = svgHeight - margin.top - margin.bottom;
 
+// ********************************************************************************
+// 2. Create SVG wrapper, append SVG group to hold chart, shift margins
+// ********************************************************************************
+
 // Select body, append SVG, and set dimensions
 var svg = d3.select("#scatter")
     .append("svg")
@@ -31,7 +35,7 @@ var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // ********************************************************************************
-// Load csv data and console log data (obesity and povert)
+// 3. Import csv data and console log data (obesity and poverty)
 // *** How do I tell it which columns to grab? How do I tell it to  grab 2?
 // ********************************************************************************
 
@@ -42,7 +46,11 @@ d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close 
     console.log(obesityData);
 
     // ********************************************************************************
-    // Create axes for chart 
+    // 4. Parse the Data - is this necessary if no dates involved?
+    // ********************************************************************************
+
+    // ********************************************************************************
+    // 5. Create Scales
     // I want poverty on x axis and obesity on y axis
     // ********************************************************************************
 
@@ -59,13 +67,31 @@ d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close 
         .range([chartHeight, 0])
         .domain([0, d3.max(milesData, data => data.miles)]);
 
+    // ********************************************************************************
+    // 6. Create Axes
+    // I want poverty on x axis and obesity on y axis
+    // ********************************************************************************
+
     // Create two new functions passing the scales in as arguments
     // These will be used to create the chart's axes
     var bottomAxis = d3.axisBottom(xTimeScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
     // ********************************************************************************
-    // Add bubbles
+    // Step 7: Append the axes to the chartGroup
+    // ********************************************************************************
+
+    // Add bottomAxis
+    chartGroup.append("g").attr("transform", `translate(0, ${height})`).call(bottomAxis);
+
+    // Add leftAxis to the left side of the display
+    chartGroup.append("g").call(leftAxis);
+
+    // Add rightAxis to the right side of the display
+    chartGroup.append("g").attr("transform", `translate(${width}, 0)`).call(rightAxis);
+
+    // ********************************************************************************
+    // Step 8: Set up bubbles and append SVG path?
     // ********************************************************************************
 
     // Add a scale for bubble size
@@ -97,7 +123,7 @@ d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close 
 //         var toolTip = d3.select("body")
 //         .append("div")
 //         .classed("tooltip", true);
-  
+
 //       // Step 2: Create "mouseover" event listener to display tooltip
 //       circlesGroup.on("mouseover", function(d) {
 //         toolTip.style("display", "block")
@@ -111,15 +137,14 @@ d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close 
 //         .on("mouseout", function() {
 //           toolTip.style("display", "none");
 //         });
-  
+
 //     }).catch(function(error) {
 //       console.log(error);
 //     });
 //   }
-  
+
 //   // When the browser loads, makeResponsive() is called.
 //   makeResponsive();
-  
+
 //   // When the browser window is resized, makeResponsive() is called.
 //   d3.select(window).on("resize", makeResponsive);
-  
