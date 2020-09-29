@@ -21,48 +21,68 @@ var chartWidth = svgWidth - margin.left - margin.right;
 var chartHeight = svgHeight - margin.top - margin.bottom;
 
 // Select body, append SVG, and set dimensions
-var svg = d3.select("body")
-  .append("svg")
-  .attr("width", svgWidth)
-  .attr("height", svgHeight);
+var svg = d3.select("#scatter")
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
 
 // Append a group area, then set its margins
 var chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-// Configure a parseTime function which will return a new Date object from a string
-var parseTime = d3.timeParse("%B");
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // ********************************************************************************
 // Load csv data and console log data (obesity and povert)
-// How do I tell it which columns to grab? How do I tell it to  grab 2?
+// *** How do I tell it which columns to grab? How do I tell it to  grab 2?
 // ********************************************************************************
 
 // Load data from data.csv
-d3.csv("../data/data.csv").then(function(obesityData) {
+d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close this curly bracket??
 
-  // Print the obesityData (*** how would it know what to grab? ***)
-  console.log(obesityData);
+    // Print the obesityData (*** how would it know what to grab? ***)
+    console.log(obesityData);
 
-// ********************************************************************************
-// Create axes for chart 
-// I want poverty on x axis and obesity on y axis
-// ********************************************************************************
+    // ********************************************************************************
+    // Create axes for chart 
+    // I want poverty on x axis and obesity on y axis
+    // ********************************************************************************
 
-// Configure a time scale with a range between 0 and the chartWidth
-// Set the domain for the xTimeScale function
-// d3.extent returns the an array containing the min and max values for the property specified
-var xTimeScale = d3.scaleTime()
-  .range([0, chartWidth])
-  .domain(d3.extent(obesityData, data => data.date));
+    // Configure a time scale with a range between 0 and the chartWidth
+    // Set the domain for the xTimeScale function
+    // d3.extent returns the an array containing the min and max values for the property specified
+    var xTimeScale = d3.scaleTime()
+        .range([0, chartWidth])
+        .domain(d3.extent(obesityData, data => data.date));
 
-// Configure a linear scale with a range between the chartHeight and 0
-// Set the domain for the xLinearScale function
-var yLinearScale = d3.scaleLinear()
-  .range([chartHeight, 0])
-  .domain([0, d3.max(milesData, data => data.miles)]);
+    // Configure a linear scale with a range between the chartHeight and 0
+    // Set the domain for the xLinearScale function
+    var yLinearScale = d3.scaleLinear()
+        .range([chartHeight, 0])
+        .domain([0, d3.max(milesData, data => data.miles)]);
 
-// Create two new functions passing the scales in as arguments
-// These will be used to create the chart's axes
-var bottomAxis = d3.axisBottom(xTimeScale);
-var leftAxis = d3.axisLeft(yLinearScale);
+    // Create two new functions passing the scales in as arguments
+    // These will be used to create the chart's axes
+    var bottomAxis = d3.axisBottom(xTimeScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+
+    // ********************************************************************************
+    // Add bubbles
+    // ********************************************************************************
+
+    // Add a scale for bubble size
+    var z = d3.scaleLinear()
+        .domain([0, 20])
+        .range([0, 30]);
+
+    // Add dots
+    svg.append('g')
+        .selectAll("dot")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d) { return x(d.poverty); })
+        .attr("cy", function (d) { return y(d.obesity); })
+        .attr("r", function (d) { return z(d.abbr); })
+        .style("fill", "#69b3a2")
+        .style("opacity", "0.7")
+        .attr("stroke", "black")
+})
