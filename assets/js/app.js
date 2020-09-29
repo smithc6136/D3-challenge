@@ -50,6 +50,10 @@ d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close 
     // ********************************************************************************
 
     // ********************************************************************************
+    // 4. Format the Data - is this necessary? If so see 16.2 Act 04
+    // ********************************************************************************
+
+    // ********************************************************************************
     // 5. Create Scales
     // I want poverty on x axis and obesity on y axis
     // ********************************************************************************
@@ -76,6 +80,65 @@ d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close 
     // These will be used to create the chart's axes
     var bottomAxis = d3.axisBottom(xTimeScale);
     var leftAxis = d3.axisLeft(yLinearScale);
+
+    // ********************************************************************************
+    // BONUS - Add additional Axes
+    // ********************************************************************************
+
+    // 16.3 Activity 04
+    //     // Add x-axis
+    //   chartGroup.append("g")
+    //   .attr("transform", `translate(0, ${height})`)
+    //   .call(bottomAxis);
+
+    // // Add y1-axis to the left side of the display
+    // chartGroup.append("g")
+    //   // Define the color of the axis text
+    //   .classed("green", true)
+    //   .call(leftAxis);
+
+    // // Add y2-axis to the right side of the display
+    // chartGroup.append("g")
+    //   // Define the color of the axis text
+    //   .classed("blue", true)
+    //   .attr("transform", `translate(${width}, 0)`)
+    //   .call(rightAxis);
+
+    // // Line generators for each line
+    // var line1 = d3.line()
+    //   .x(d => xTimeScale(d.date))
+    //   .y(d => yLinearScale1(d.dow_index));
+
+    // var line2 = d3.line()
+    //   .x(d => xTimeScale(d.date))
+    //   .y(d => yLinearScale2(d.smurf_sightings));
+
+    // // Append a path for line1
+    // chartGroup.append("path")
+    //   .data([smurfData])
+    //   .attr("d", line1)
+    //   .classed("line green", true);
+
+    // // Append a path for line2
+    // chartGroup.append("path")
+    //   .data([smurfData])
+    //   .attr("d", line2)
+    //   .classed("line blue", true);
+
+    // // Append axes titles
+    // chartGroup.append("text")
+    // .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+    //   .classed("dow-text text", true)
+    //   .text("Dow Index");
+
+    // chartGroup.append("text")
+    // .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
+    //   .classed("smurf-text text", true)
+    //   .text("Smurf Sightings");
+    // }).catch(function(error) {
+    // console.log(error);
+    // });
+
 
     // ********************************************************************************
     // Step 7: Append the axes to the chartGroup
@@ -148,3 +211,9 @@ d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close 
 
 //   // When the browser window is resized, makeResponsive() is called.
 //   d3.select(window).on("resize", makeResponsive);
+
+// ********************************************************************************
+// Multiple Data and Axes
+// For reference on properly placing axis titles, see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
+// ********************************************************************************
+
