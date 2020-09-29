@@ -81,8 +81,45 @@ d3.csv("../data/data.csv").then(function (obesityData) { // ** where do I close 
         .append("circle")
         .attr("cx", function (d) { return x(d.poverty); })
         .attr("cy", function (d) { return y(d.obesity); })
+        // is this what includes state abbreviation?
         .attr("r", function (d) { return z(d.abbr); })
         .style("fill", "#69b3a2")
         .style("opacity", "0.7")
         .attr("stroke", "black")
 })
+
+    // ********************************************************************************
+    // Add tooltip 
+    // Code below from 16.3 Activity 07
+    // ********************************************************************************
+
+//         // Step 1: Append tooltip div
+//         var toolTip = d3.select("body")
+//         .append("div")
+//         .classed("tooltip", true);
+  
+//       // Step 2: Create "mouseover" event listener to display tooltip
+//       circlesGroup.on("mouseover", function(d) {
+//         toolTip.style("display", "block")
+//             .html(
+//               `<strong>${dateFormatter(d.date)}<strong><hr>${d.medals}
+//           medal(s) won`)
+//             .style("left", d3.event.pageX + "px")
+//             .style("top", d3.event.pageY + "px");
+//       })
+//         // Step 3: Create "mouseout" event listener to hide tooltip
+//         .on("mouseout", function() {
+//           toolTip.style("display", "none");
+//         });
+  
+//     }).catch(function(error) {
+//       console.log(error);
+//     });
+//   }
+  
+//   // When the browser loads, makeResponsive() is called.
+//   makeResponsive();
+  
+//   // When the browser window is resized, makeResponsive() is called.
+//   d3.select(window).on("resize", makeResponsive);
+  
