@@ -1,3 +1,5 @@
+// Next Steps: Create function to add state abbreviations to bubbles (line 185)
+
 // ********************************************************************************
 // 1. Set up Chart: Define Dimensions and Set Margins
 // ********************************************************************************
@@ -18,6 +20,7 @@ var margin = {
 var chartWidth = svgWidth - margin.left - margin.right;
 var chartHeight = svgHeight - margin.top - margin.bottom;
 
+
 // ********************************************************************************
 // 2. Create SVG wrapper, append SVG group to hold chart, shift margins
 // ********************************************************************************
@@ -32,6 +35,7 @@ var svg = d3.select("#scatter")
 var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
+
 // ********************************************************************************
 // 3. Import csv data and console log data (obesity and poverty)
 // *** How do I tell it which columns to grab? How do I tell it to  grab 2?
@@ -43,6 +47,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // Print the csv data
     console.log(statesData);
 
+
     // ********************************************************************************
     // 4. Parse the Data (from string to integer)
     // ********************************************************************************
@@ -53,9 +58,11 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         data.poverty = +data.poverty;
     });
 
+
     // ********************************************************************************
     // 4. Format the Data - is this necessary? If so see 16.2 Act 04
     // ********************************************************************************
+
 
     // ********************************************************************************
     // 5. Create Scales
@@ -75,6 +82,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         .range([chartHeight, 0])
         .domain([0, d3.max(statesData, data => data.obesity)]);
 
+
     // ********************************************************************************
     // 6. Create Axes
     // I want poverty on x axis and obesity on y axis
@@ -84,6 +92,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // These will be used to create the chart's axes
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
+
 
     // ********************************************************************************
     // BONUS - Add additional Axes
@@ -154,12 +163,10 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // Add leftAxis to the left side of the display
     chartGroup.append("g").call(leftAxis);
 
+
     // ********************************************************************************
     // Step 8: Set up bubbles and append SVG path?
     // ********************************************************************************
-
-    // need function to pass in the state abbreviations !!!
-    // All dots in top left corner???
 
     // Add dots
     chartGroup.append('g')
@@ -175,6 +182,19 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         .style("opacity", "0.7")
         .attr("stroke", "black")
 })
+    // need function to pass in the state abbreviations !!!
+        // might help: https://bl.ocks.org/alokkshukla/3d6be4be0ef9f6977ec6718b2916d168
+        // https://bl.ocks.org/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a code below:
+
+    // // labels - running this currently gets rid of bubble chart entirely... ?
+    // labels = chartGroup
+    //     .append('text')
+    //     .attr('dy', function (d) { return d.abbr }; )
+    //     // .attr('dy', '.3em')
+    //     .style('text-anchor', 'middle')
+    //     .style('font-size', 10)
+    //     .text(d => d.abbr)
+
 
     // ********************************************************************************
     // Add tooltip 
