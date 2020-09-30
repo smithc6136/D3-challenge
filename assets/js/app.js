@@ -3,7 +3,7 @@
 // ********************************************************************************
 
 // Define SVG area dimensions
-var svgWidth = 960;
+var svgWidth = 1000;
 var svgHeight = 500;
 
 // Define chart's margins as an object
@@ -65,15 +65,15 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // Configure a time scale with a range between 0 and the chartWidth
     // Set the domain for the xTimeScale function
     // d3.extent returns the an array containing the min and max values for the property specified
-    var xTimeScale = d3.scaleTime()
+    var xLinearScale = d3.scaleLinear()
         .range([0, chartWidth])
-        .domain(d3.extent(statesData, data => data.obesity));
+        .domain(d3.extent(statesData, data => data.poverty));
 
     // Configure a linear scale with a range between the chartHeight and 0
     // Set the domain for the xLinearScale function
     var yLinearScale = d3.scaleLinear()
         .range([chartHeight, 0])
-        .domain([0, d3.max(statesData, data => data.poverty)]);
+        .domain([0, d3.max(statesData, data => data.obesity)]);
 
     // ********************************************************************************
     // 6. Create Axes
@@ -82,7 +82,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
 
     // Create two new functions passing the scales in as arguments
     // These will be used to create the chart's axes
-    var bottomAxis = d3.axisBottom(xTimeScale);
+    var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
     // ********************************************************************************
@@ -149,7 +149,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // ********************************************************************************
 
     // Add bottomAxis
-    chartGroup.append("g").attr("transform", `translate(0, ${svgHeight})`).call(bottomAxis);
+    chartGroup.append("g").attr("transform", `translate(0, ${chartHeight})`).call(bottomAxis);
 
     // Add leftAxis to the left side of the display
     chartGroup.append("g").call(leftAxis);
@@ -158,21 +158,19 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // Step 8: Set up bubbles and append SVG path?
     // ********************************************************************************
 
-    // Add a scale for bubble size
-    var z = d3.scaleLinear()
-        .domain([0, 20])
-        .range([0, 30]);
+    // need function to pass in the state abbreviations !!!
+    // All dots in top left corner???
 
     // Add dots
-    svg.append('g')
+    chartGroup.append('g')
         .selectAll("dot")
         .data(statesData)
         .enter()
         .append("circle")
-        .attr("cx", function (d) { return x(d.poverty); })
-        .attr("cy", function (d) { return y(d.obesity); })
-        // is this what includes state abbreviation?
-        .attr("r", function (d) { return z(d.abbr); })
+        .attr("cx", function (d) { return xLinearScale(d.poverty); })
+        .attr("cy", function (d) { return yLinearScale(d.obesity); })
+        .attr("r", 13)
+        .attr("text-anchor", "middle").text(function (d) { return (d.abbr); })
         .style("fill", "#69b3a2")
         .style("opacity", "0.7")
         .attr("stroke", "black")
