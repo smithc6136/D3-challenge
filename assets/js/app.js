@@ -1,4 +1,5 @@
-// Next Steps: Create function to add state abbreviations to bubbles (line 185)
+// Next Steps: Create function to add state abbreviations to bubbles (line 199)
+    // anything else is bonus!
 
 // ********************************************************************************
 // 1. Set up Chart: Define Dimensions and Set Margins
@@ -84,8 +85,8 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
 
 
     // ********************************************************************************
-    // 6. Create Axes
-    // I want poverty on x axis and obesity on y axis
+    // 6. Create Axes and Axis Labels
+    // Poverty on x axis and obesity on y axis
     // ********************************************************************************
 
     // Create two new functions passing the scales in as arguments
@@ -93,6 +94,19 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
+    // Create axis labels
+    chartGroup.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (chartHeight / 2))
+        .attr("dy", "1em")
+        .attr("class", "axisText")
+        .text("Obesity");
+
+    chartGroup.append("text")
+        .attr("transform", `translate(${chartWidth / 2}, ${chartHeight + margin.top - 10})`)
+        .attr("class", "axisText")
+        .text("Poverty");
 
     // ********************************************************************************
     // BONUS - Add additional Axes
