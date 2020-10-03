@@ -109,65 +109,6 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         .text("Poverty");
 
     // ********************************************************************************
-    // BONUS - Add additional Axes
-    // ********************************************************************************
-
-    // 16.3 Activity 04
-    //     // Add x-axis
-    //   chartGroup.append("g")
-    //   .attr("transform", `translate(0, ${height})`)
-    //   .call(bottomAxis);
-
-    // // Add y1-axis to the left side of the display
-    // chartGroup.append("g")
-    //   // Define the color of the axis text
-    //   .classed("green", true)
-    //   .call(leftAxis);
-
-    // // Add y2-axis to the right side of the display
-    // chartGroup.append("g")
-    //   // Define the color of the axis text
-    //   .classed("blue", true)
-    //   .attr("transform", `translate(${width}, 0)`)
-    //   .call(rightAxis);
-
-    // // Line generators for each line
-    // var line1 = d3.line()
-    //   .x(d => xTimeScale(d.date))
-    //   .y(d => yLinearScale1(d.dow_index));
-
-    // var line2 = d3.line()
-    //   .x(d => xTimeScale(d.date))
-    //   .y(d => yLinearScale2(d.smurf_sightings));
-
-    // // Append a path for line1
-    // chartGroup.append("path")
-    //   .data([smurfData])
-    //   .attr("d", line1)
-    //   .classed("line green", true);
-
-    // // Append a path for line2
-    // chartGroup.append("path")
-    //   .data([smurfData])
-    //   .attr("d", line2)
-    //   .classed("line blue", true);
-
-    // // Append axes titles
-    // chartGroup.append("text")
-    // .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
-    //   .classed("dow-text text", true)
-    //   .text("Dow Index");
-
-    // chartGroup.append("text")
-    // .attr("transform", `translate(${width / 2}, ${height + margin.top + 37})`)
-    //   .classed("smurf-text text", true)
-    //   .text("Smurf Sightings");
-    // }).catch(function(error) {
-    // console.log(error);
-    // });
-
-
-    // ********************************************************************************
     // Step 7: Append the axes to the chartGroup
     // ********************************************************************************
 
@@ -195,20 +136,45 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         .style("fill", "#69b3a2")
         .style("opacity", "0.7")
         .attr("stroke", "black")
+
+    // Code to label bubbles from Activity:
+    // circlesGroup
+    //     .append("text")
+    //     //We return the abbreviation to .text, which makes the text the abbreviation.
+    //     .text(function (d) {
+    //         return d.rockband.slice(0,2);
+    //     })
+    //     //Now place the text using our scale.
+    //     .attr("dx", function (d) {
+    //         return xLinearScale(d['hair_length']) - 10;
+    //     })
+    //     .attr("dy", function (d) {
+    //         // When the size of the text is the radius,
+    //         // adding a third of the radius to the height
+    //         // pushes it into the middle of the circle.
+    //         return yLinearScale(d['num_hits']) + 10 / 2.5;
+    //     })
+    //     .attr("font-size", 15)
+    //     .attr("class", "stateText")
+
+    // code adapted for this assignment:
+    chartGroup
+        .append("text")
+        //We return the abbreviation to .text, which makes the text the abbreviation.
+        .text(function (d) {
+            return d.abbr;
+        })
+        //Now place the text using our scale.
+        .attr("dx", function (d) {
+            return xLinearScale(d['abbr']) - 10;
+        })
+        .attr("dy", function (d) {
+            // When the size of the text is the radius, adding a third of the radius to the height pushes it into the middle of the circle.
+            return yLinearScale(d['num_hits']) + 10 / 2.5;
+        })
+        .attr("font-size", 15)
+        .attr("class", "stateText")
 })
-    // need function to pass in the state abbreviations !!!
-        // might help: https://bl.ocks.org/alokkshukla/3d6be4be0ef9f6977ec6718b2916d168
-        // https://bl.ocks.org/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a code below:
-
-    // // labels - running this currently gets rid of bubble chart entirely... ?
-    // labels = chartGroup
-    //     .append('text')
-    //     .attr('dy', function (d) { return d.abbr }; )
-    //     // .attr('dy', '.3em')
-    //     .style('text-anchor', 'middle')
-    //     .style('font-size', 10)
-    //     .text(d => d.abbr)
-
 
     // ********************************************************************************
     // Add tooltip 
@@ -244,9 +210,3 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
 
 //   // When the browser window is resized, makeResponsive() is called.
 //   d3.select(window).on("resize", makeResponsive);
-
-// ********************************************************************************
-// Multiple Data and Axes
-// For reference on properly placing axis titles, see https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
-// ********************************************************************************
-
