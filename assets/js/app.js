@@ -37,6 +37,7 @@ var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 
+
 // ********************************************************************************
 // 3. Import csv data and console log data (obesity and poverty)
 // *** How do I tell it which columns to grab? How do I tell it to  grab 2?
@@ -158,7 +159,8 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     //     .attr("class", "stateText")
 
     // code adapted for this assignment:
-    chartGroup
+    var circlesGroup = chartGroup.selectAll("circle").data(statesData).enter()
+    circlesGroup
         .append("text")
         //We return the abbreviation to .text, which makes the text the abbreviation.
         .text(function (d) {
