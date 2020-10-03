@@ -166,11 +166,11 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         })
         //Now place the text using our scale.
         .attr("dx", function (d) {
-            return xLinearScale(d['abbr']) - 10;
+            return xLinearScale(d['poverty']) - 10;
         })
         .attr("dy", function (d) {
             // When the size of the text is the radius, adding a third of the radius to the height pushes it into the middle of the circle.
-            return yLinearScale(d['num_hits']) + 10 / 2.5;
+            return yLinearScale(d['obesity']) + 10 / 2.5;
         })
         .attr("font-size", 15)
         .attr("class", "stateText")
