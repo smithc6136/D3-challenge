@@ -125,7 +125,9 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
     // ********************************************************************************
 
     // Add dots
-    chartGroup.append('g')
+    var circlesGroup = chartGroup.selectAll("circle").data(statesData).enter()
+ 
+    circlesGroup.append('g')
         .selectAll("dot")
         .data(statesData)
         .enter()
@@ -138,28 +140,6 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         .style("opacity", "0.7")
         .attr("stroke", "black")
 
-    // Code to label bubbles from Activity:
-    // circlesGroup
-    //     .append("text")
-    //     //We return the abbreviation to .text, which makes the text the abbreviation.
-    //     .text(function (d) {
-    //         return d.rockband.slice(0,2);
-    //     })
-    //     //Now place the text using our scale.
-    //     .attr("dx", function (d) {
-    //         return xLinearScale(d['hair_length']) - 10;
-    //     })
-    //     .attr("dy", function (d) {
-    //         // When the size of the text is the radius,
-    //         // adding a third of the radius to the height
-    //         // pushes it into the middle of the circle.
-    //         return yLinearScale(d['num_hits']) + 10 / 2.5;
-    //     })
-    //     .attr("font-size", 15)
-    //     .attr("class", "stateText")
-
-    // code adapted for this assignment:
-    var circlesGroup = chartGroup.selectAll("circle").data(statesData).enter()
     circlesGroup
         .append("text")
         //We return the abbreviation to .text, which makes the text the abbreviation.
@@ -168,7 +148,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         })
         //Now place the text using our scale.
         .attr("dx", function (d) {
-            return xLinearScale(d['poverty']) - 10;
+            return xLinearScale(d['poverty']);
         })
         .attr("dy", function (d) {
             // When the size of the text is the radius, adding a third of the radius to the height pushes it into the middle of the circle.
