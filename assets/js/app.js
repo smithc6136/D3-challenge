@@ -1,6 +1,3 @@
-// Next Steps: Create function to add state abbreviations to bubbles (line 199)
-    // anything else is bonus!
-
 // ********************************************************************************
 // 1. Set up Chart: Define Dimensions and Set Margins
 // ********************************************************************************
