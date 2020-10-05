@@ -37,7 +37,6 @@ var chartGroup = svg.append("g")
 
 // ********************************************************************************
 // 3. Import csv data and console log data (obesity and poverty)
-// *** How do I tell it which columns to grab? How do I tell it to  grab 2?
 // ********************************************************************************
 
 // Load data from data.csv
@@ -59,13 +58,8 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
 
 
     // ********************************************************************************
-    // 4. Format the Data - is this necessary? If so see 16.2 Act 04
-    // ********************************************************************************
-
-
-    // ********************************************************************************
-    // 5. Create Scales
-    // Poverty on x axis and obesity on y axis
+    // 4. Create Scales
+    // X: Poverty, Y: Obesity
     // ********************************************************************************
 
     // Configure a time scale with a range between 0 and the chartWidth
@@ -83,8 +77,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
 
 
     // ********************************************************************************
-    // 6. Create Axes and Axis Labels
-    // Poverty on x axis and obesity on y axis
+    // 5. Create Axes and Axis Labels
     // ********************************************************************************
 
     // Create two new functions passing the scales in as arguments
@@ -107,7 +100,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         .text("Poverty");
 
     // ********************************************************************************
-    // Step 7: Append the axes to the chartGroup
+    // 6: Append the axes to the chartGroup
     // ********************************************************************************
 
     // Add bottomAxis
@@ -118,7 +111,7 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
 
 
     // ********************************************************************************
-    // Step 8: Set up bubbles and append SVG path?
+    // 7: Set up bubbles
     // ********************************************************************************
 
     // Add dots
@@ -154,38 +147,3 @@ d3.csv("assets/data/data.csv").then(function (statesData) { // ** where do I clo
         .attr("font-size", 15)
         .attr("class", "stateText")
 })
-
-    // ********************************************************************************
-    // Add tooltip 
-    // Code below from 16.3 Activity 07
-    // ********************************************************************************
-
-//         // Step 1: Append tooltip div
-//         var toolTip = d3.select("body")
-//         .append("div")
-//         .classed("tooltip", true);
-
-//       // Step 2: Create "mouseover" event listener to display tooltip
-//       circlesGroup.on("mouseover", function(d) {
-//         toolTip.style("display", "block")
-//             .html(
-//               `<strong>${dateFormatter(d.date)}<strong><hr>${d.medals}
-//           medal(s) won`)
-//             .style("left", d3.event.pageX + "px")
-//             .style("top", d3.event.pageY + "px");
-//       })
-//         // Step 3: Create "mouseout" event listener to hide tooltip
-//         .on("mouseout", function() {
-//           toolTip.style("display", "none");
-//         });
-
-//     }).catch(function(error) {
-//       console.log(error);
-//     });
-//   }
-
-//   // When the browser loads, makeResponsive() is called.
-//   makeResponsive();
-
-//   // When the browser window is resized, makeResponsive() is called.
-//   d3.select(window).on("resize", makeResponsive);
